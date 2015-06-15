@@ -1,0 +1,73 @@
+﻿@using ACM.Models.ITReports;
+
+@model ITReportItemModel
+
+@{
+    ViewBag.Title = "Review IT Report";
+    ViewBag.IsPopup = true;
+    ViewBag.ShowTitle = false;
+}
+
+<style>
+    td{
+        height: 30px;
+    }
+</style>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.ReportID)
+    <table style="width:100%">
+        <tr>
+            <td style="width: 35%; vertical-align: central;">
+                @Html.Label("Category")
+            </td>
+            <td style="vertical-align: central;">
+                @CodeHelper.GetReportCategory(Model.reportItem.ReportCategoryID)
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 35%;">
+                @Html.Label("Report Date")
+            </td>
+            <td style="vertical-align: central;">
+                @String.Format("{0:dd/MM/yyyy}", Model.reportItem.ReportDate)
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 35%;">
+                @Html.Label("Comments")
+            </td>
+            <td style="vertical-align: central;">
+                @Html.TextAreaFor(model => model.reportItem.Comments, new { rows = "4", cols = "35", style = "margin: 0px; height: 74px; width: 304px;" })
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 35%;">
+                @Html.Label("Raise Non-Conformity?")
+            </td>
+            <td style="vertical-align: central;">
+                @Html.CheckBoxFor(model => model.RaiseNC)
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 35%;">
+                &nbsp;
+            </td>
+            <td style="vertical-align: central;">
+                &nbsp;
+            </td>
+        </tr>
+        <tr>
+            <td style="width: 35%;">
+                &nbsp;
+            </td>
+            <td style="vertical-align: central;">
+                @Html.KendoSubmitButton("Save", "Save", new { style = "width: 75px;"})
+                @Html.KendoSubmitButton("Cancel", "Cancel", new { style = "width: 75px;" })
+            </td>
+        </tr>
+    </table>
+
+}

@@ -1,0 +1,48 @@
+﻿<script type="text/javascript">
+    function logOut() {
+        $.post('/Account/LogOff',
+            function (response) {
+                window.location.href = '/Account/Login'
+            }, 'text');
+
+
+    }
+</script>
+
+@(Html.Kendo().Menu()
+      .Name("Menu")
+      .Items(items =>
+      {
+          items.Add().Text("My Active OFIs").Action("Index", "OFI");
+          items.Add().Text("View All Active OFIs").Action("IndexActive", "OFI");
+          items.Add().Text("Create New OFI").Action("CreateOFI", "OFI");
+          items.Add()
+                        .Text("Reports")
+                        .Items(children =>
+                        {
+                            children.Add().Text("Weekly OFI Report").Action("WeeklyReport", "Report");
+                        });
+          items.Add().Text("IT Security Reports").Action("Index", "ITReports");          
+          items.Add()
+              .Text("Manage")
+              .Items(children =>
+               {
+                   children.Add().Text("User Accounts")
+                           .Items(innerChildren =>
+                           {
+                               innerChildren.Add().Text("Manage Users").Action("Users", "Admin");
+                               innerChildren.Add().Text("Manage User Roles").Action("UserRoles", "Admin");
+                           });
+                   children.Add().Text("Parameters")
+                           .Items(innerChildren =>
+                           {
+                               innerChildren.Add().Text("Manage OFI Types").Action("OFITypes", "Admin");
+                               innerChildren.Add().Text("Manage OFI Categories").Action("OFICategories", "Admin");
+                               innerChildren.Add().Text("Manage OFI Origins").Action("OFIOrigins", "Admin");
+                               innerChildren.Add().Text("Manage OFI Priorities").Action("OFIPriorities", "Admin");
+                           });
+               });
+
+          items.Add().Text("Logout").LinkHtmlAttributes(new { onclick = "logOut();" });
+      })
+)

@@ -1,0 +1,87 @@
+﻿body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: normal;
+    font-size: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+.pure-control-group {
+    height: 35px;
+}
+
+label, p, a {
+vertical-align: middle;
+}
+
+.k-textbox {
+    font-size: 12px;
+    height: 35px !important;
+    width: 250px;
+}
+
+.k-button {
+    font-size: 12px !important;
+}
+
+.k-menu .k-link {
+    font-size: 14px;
+}
+
+.k-popup-edit-form {
+    padding-left: 10px !important;
+    padding-right: 10px !important;
+}
+
+.k-window-title {
+    font-size: 14px !important;
+}
+
+/*div {
+    border:1px solid black;
+}*/
+
+h1, h2, h3, h4, h5 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+h2 {
+    font-size: 18px;
+}
+
+
+.validation-summary-errors, .field-validation-error {
+    font-size: 12px;
+    color: #ba3c3c;
+    padding-left: 20px;
+}
+
+
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+
+#divLoginMain {
+    width: 100%;
+}
+
+#divLoginLeft {
+    float: left;
+    width: 45%;
+    padding-right: 50px;
+}
+
+#divLoginRight {
+    float: left;
+    border-left: 1px solid #ccc;
+    width: 45%;
+    min-height: 100px;
+}
+

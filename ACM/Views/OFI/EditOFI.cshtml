@@ -1,0 +1,262 @@
+﻿@model ACM.Models.OFIModel
+
+@{
+    ViewBag.Title = "Edit OFI #" + Model.OFIID.Value.ToString();
+}
+
+<script type="text/javascript">
+
+    var data;
+
+    function onEditClick(e) {
+        var window = $("#OFIEntryWindow").data("kendoWindow");
+        window.refresh({
+            url: "/OFI/EntryEditor/?id=" + e + "&ofiId=" + @Model.OFIID.Value.ToString(),
+        });
+        $("#OFIEntryWindow").data("kendoWindow").center().open();
+    }
+
+    function CloseOFIEntryPopupWindow() {
+        $("#OFIEntryWindow").data("kendoWindow").center().close();
+        location.reload();
+    }
+
+    function ApproveOFI()
+    {
+
+        $('#id').show();
+        windowClose();
+        var id = @Model.OFIID.ToString();
+        var URL = '@Url.Action("ApproveOFI","OFI")/' + id;
+        $.post(URL, function (data, status) {
+            if (data.length > 0) {
+                alert("Error: " + data);
+            }
+        });
+
+        $.get("@Url.Action("_AjaxGetApprovalText", "OFI")/" + id, function (data, status) {
+            $('#ofiApprovalDiv').html(data);
+        });
+
+        $('#id').hide();
+
+    }
+
+
+    $(document).ready(function() {
+        SetupKendoUploader();
+        if ('@Model.CurrentLocked' == 'True')
+        {
+            $('#SaveChanges').attr("disabled", true);
+        }
+
+    });
+
+    function SetupKendoUploader()
+    {
+        $("#attachments").kendoUpload({
+            multiple: false,
+            async: {
+                saveUrl: '@Url.Action("SaveFile", "OFI")',
+                autoUpload: true
+            },
+            upload: onUpload,
+            complete: onComplete
+        });
+        $("#attachments").closest(".k-upload").find("span").text("Add New File...");
+    }
+
+    function reloadOFIFileList()
+    {
+        $.get("@Url.Action("OFIFileList", "OFI")/" + "@Model.OFIID.Value.ToString()", function(data, status){
+            $("#fileDiv").html(data);
+        });
+    }
+
+    function onComplete(e) {
+        $('#id').show();
+        setTimeout(
+          function()
+          {
+              reloadOFIFileList();
+
+          }, 1000);
+        $('#id').hide();
+    }
+
+
+
+    function onUpload(e)
+    {
+        e.data  =
+            {
+                id: @Model.OFIID.Value.ToString()
+                };
+
+    }
+
+    function onClickShowFiles()
+    {
+        if ($('#fileDiv').css('display') == 'none') {
+            $('#fileDiv').fadeIn();
+        } else {
+            $('#fileDiv').fadeOut();
+        }
+
+    }
+
+    function deleteItem() {
+        $('#id').show();
+        windowClose();
+        var URL = '@Url.Action("DeleteFile","OFI")/' + data;
+        $.post(URL, function (data, status) {
+            if (data.length > 0) {
+                alert("Error: " + data);
+            }
+        });
+        reloadOFIFileList();
+
+        $('#id').hide();
+    }
+
+    function windowClose() {
+        $('#DeleteWindow').data('kendoWindow').center().close();
+    }
+
+    function removeFile(id)
+    {
+        data = null;
+        data = id; //get the row data so it can be referred later
+        $('#DeleteWindow').data("kendoWindow").center().open();
+
+    }
+</script>
+@if (Model.CurrentLocked)
+{
+    <div style="width:100%;background-color:#f6aa11;padding-top:5px;padding-bottom:5px; padding-left:25px; border-radius: 10px;">
+        <h4>Please note this OFI is locked for editing by @ACM.Helpers.UserHelper.GetUserFullName(Model.CurrentLockID)@Model.MinutesLeftString</h4>
+    </div>
+}
+<br />
+@(Html.Kendo()
+      .Window()
+      .Name("DeleteWindow")
+      .Title("Confirm")
+      .Content(@<text>
+        <p>Are you sure you wish to delete this item?</p>
+        <div style="float:right;">
+            @Html.KendoSubmitButton("Yes", "Yes", jscript: "deleteItem()", htmlAttributes: new { style = "width:75px;" })
+            @Html.KendoSubmitButton("No", "No", jscript: "windowClose()", htmlAttributes: new { style = "width:75px;" })
+        </div>
+    </text>)
+                                                                    .Width(300)
+                                                                    .Draggable(false)
+                                                                    .Modal(true)
+                                                                    .Visible(false))
+
+@(Html.Kendo().Window()
+    .Name("OFIEntryWindow")
+    .Title("Edit OFI Entry")
+    .Iframe(true)
+    .Modal(true)
+    .Draggable()
+    .Resizable()
+    .Visible(false)
+    .Width(1200)
+    .Height(375)
+)
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+    @Html.HiddenFor(model => model.OFIID)
+    <div style="padding-left:50px; padding-right:50px;">
+        <table style="width:100%">
+            <tr>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.OFICategoryID) <br /> @Html.Kendo().DropDownListFor(model => model.OFICategoryID).BindTo(ListHelper.GetOFICategories()).HtmlAttributes(new { style = "width:100%;" })</td>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.OFITypeID) <br /> @Html.Kendo().DropDownListFor(model => model.OFITypeID).BindTo(ListHelper.GetOFITypes()).HtmlAttributes(new { style = "width:100%;" })</td>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.OFIOriginID) <br /> @Html.Kendo().DropDownListFor(model => model.OFIOriginID).BindTo(ListHelper.GetOFIOrigins()).HtmlAttributes(new { style = "width:100%;" })</td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">@Html.LabelFor(model => model.Subject) <br /> @Html.KendoTextBoxFor(model => model.Subject, null, new { style = "width:100%;" })</td>
+            </tr>
+            <tr>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.TargetDate) <br /> @Html.Kendo().DatePickerFor(model => model.TargetDate)
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.PriorityID) <br /> @Html.Kendo().DropDownListFor(model => model.PriorityID).BindTo(ListHelper.GetOFIPriorities())</td>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.TimeEstimation) <br /> @Html.Kendo().NumericTextBoxFor(model => model.TimeEstimation).Decimals(2).Min(0).Max(99999)</td>
+            </tr>
+            <tr>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.DepartmentID) <br /> @Html.Kendo().DropDownListFor(model => model.DepartmentID).BindTo(ListHelper.GetDepartments())</td>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.OFIAssignedTo) <br /> @Html.Kendo().MultiSelectFor(model => model.OFIAssignedTo).BindTo(ListHelper.GetUsers())</td>
+                <td style="width:33%; padding-right: 25px;">
+                    @Html.Label("Approval Status") <br />
+                    <div id="ofiApprovalDiv">
+                        @if (Model.HasOFIBeenApproved())
+                        {
+                            @Html.Raw(Model.PrintApprovalStatusString().ToHtmlString());
+                        }
+                        else
+                        {
+                            if (ACM.Helpers.UserHelper.IsCurrentUserNationalManager() || ACM.Helpers.UserHelper.IsCurrentUserAdministrator())
+                            {
+                                <a href="#" onclick="ApproveOFI(); return false;">Not Approved - Click here to approve</a>
+                            }
+                            else
+                            {
+                                @Html.Raw(Model.PrintNotApprovedStatusString().ToHtmlString());
+                            }
+                        }
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3"></td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3"><a href="#" id="ofiFilesLink" onclick="onClickShowFiles();">OFI Files</a></td>
+            </tr>
+
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">
+                    <div id="fileDiv" style="display:none;border: 1px solid #CCCCCC; padding:10px;">
+                        @Html.Partial("OFIFileList", Model)
+                    </div>
+                    <input name="attachments" id="attachments" type="file" />
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">@Html.KendoSubmitButton("Add New Entry", jscript: "onEditClick(null)", htmlAttributes: new { style = "width:150px" })@Html.KendoSubmitButton("Save Changes", htmlAttributes: new { style = "width:150px" })@Html.KendoSubmitButton("Cancel Changes", htmlAttributes: new { style = "width:150px" })</td>
+            </tr>
+            @foreach (var tempEntry in Model.Entries)
+            {
+                <tr>
+                    <td style="width:100%; padding-right: 25px; padding-top:0px; padding-bottom:20px;" colspan="3">
+                        <table style="width: 100%">
+                            <tr>
+                                <td style="background-color: #EBEBF5; padding: 10px;border: 1px solid #CCCCCC;">Created: @ACM.Helpers.UserHelper.GetUserFullName(tempEntry.CreateUserID) - @ACM.Helpers.FormatHelper.GetDateTimeString(@tempEntry.CreateDate)</td>
+                                <td rowspan="2" style="text-align:right;background-color: #EBEBF5; padding: 10px;border: 1px solid #CCCCCC;">@Html.KendoSubmitButton("Edit Entry", "EditEntry" + tempEntry.OFIEntryID.ToString(), jscript: "onEditClick(" + tempEntry.OFIEntryID.ToString() + ")")</td>
+                            </tr>
+                            <tr>
+                                <td style="background-color: #EBEBF5; padding: 10px;border-left: 1px solid #CCCCCC;border-bottom: 1px solid #CCCCCC;">Updated: @ACM.Helpers.UserHelper.GetUserFullName(tempEntry.UpdateUserID) - @ACM.Helpers.FormatHelper.GetDateTimeString(tempEntry.UpdateDate)</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2" style="border: 1px solid #CCCCCC; padding:10px;">@Html.Raw(tempEntry.EntryText)</td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+            }
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">&nbsp;</td>
+            </tr>
+        </table>
+    </div>
+}
+

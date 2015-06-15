@@ -1,0 +1,99 @@
+﻿@model ACM.Models.OFIModel
+@{
+    ViewBag.Title = "Create New OFI";
+}
+<br />
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+    <div style="padding-left:50px; padding-right:50px;">
+        <table style="width:100%">
+            <tr>
+                <td style="width:33%; padding-right: 25px;">
+                    @Html.LabelFor(model => model.OFICategoryID) <br /> @Html.Kendo().DropDownListFor(model => model.OFICategoryID).BindTo(ACM.Helpers.ListHelper.GetOFICategories()).HtmlAttributes(new { style = "width:100%;" })
+                </td>
+                <td style="width:33%; padding-right: 25px;">
+                    @Html.LabelFor(model => model.OFITypeID) <br /> @Html.Kendo().DropDownListFor(model => model.OFITypeID).BindTo(ACM.Helpers.ListHelper.GetOFITypes()).HtmlAttributes(new { style = "width:100%;" })
+                </td>
+                <td style="width:33%; padding-right: 25px;">
+                    @Html.LabelFor(model => model.OFIOriginID) <br /> @Html.Kendo().DropDownListFor(model => model.OFIOriginID).BindTo(ACM.Helpers.ListHelper.GetOFIOrigins()).HtmlAttributes(new { style = "width:100%;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">
+                    @Html.LabelFor(model => model.Subject) <br /> @Html.KendoTextBoxFor(model => model.Subject, null, new { style = "width:100%;" })
+                </td>
+            </tr>
+            <tr>
+                <td style="width:33%; padding-right: 25px;">
+                    @Html.LabelFor(model => model.TargetDate) <br /> @Html.Kendo().DatePickerFor(model => model.TargetDate)
+                <td style="width:33%; padding-right: 25px;">
+                    @Html.LabelFor(model => model.PriorityID) <br /> @Html.Kendo().DropDownListFor(model => model.PriorityID).BindTo(ACM.Helpers.ListHelper.GetOFIPriorities())
+                </td>
+                <td style="width:33%; padding-right: 25px;">
+                    @Html.LabelFor(model => model.TimeEstimation) <br /> @Html.Kendo().NumericTextBoxFor(model => model.TimeEstimation).Decimals(2).Min(0).Max(99999)
+                </td>
+            </tr>
+            <tr>
+                <td style="width:33%; padding-right: 25px;">
+                    @Html.LabelFor(model => model.DepartmentID) <br /> @Html.Kendo().DropDownListFor(model => model.DepartmentID).BindTo(ACM.Helpers.ListHelper.GetDepartments())
+                </td>
+                <td style="width:33%; padding-right: 25px;">
+                    @Html.LabelFor(model => model.OFIAssignedTo) <br /> @Html.Kendo().MultiSelectFor(model => model.OFIAssignedTo).BindTo(ACM.Helpers.ListHelper.GetUsers())
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">
+                    @(Html.Kendo()
+                          .Editor()
+              .Name("FirstAction")
+                          .Tools(tools => tools
+                                               .Clear()
+                                               .Bold()
+                                               .Italic()
+                                               .Underline()
+                                               .Strikethrough()
+                                               .JustifyLeft()
+                                               .JustifyCenter()
+                                               .JustifyRight()
+                                               .JustifyFull()
+                                               .InsertUnorderedList()
+                                               .InsertOrderedList()
+                                               .Outdent()
+                                               .Indent()
+                                               .CreateLink()
+                                               .Unlink()
+                                               .InsertImage()
+                                               .InsertFile()
+                                               .SubScript()
+                                               .SuperScript()
+                                               .TableEditing()
+                                               .ViewHtml()
+                                               .Formatting()
+                                               .CleanFormatting()
+                                               .FontColor()
+                                               .BackColor()
+                                               .Print())
+
+                    )
+                </td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">@(Html.Kendo().Upload().Name("attachments"))</td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">&nbsp;</td>
+            </tr>
+            <tr>
+                <td style="width:100%; padding-right: 25px;" colspan="3">@Html.KendoSubmitButton("Create New OFI") @Html.KendoSubmitButton("Cancel")</td>
+            </tr>
+        </table>
+    </div>
+}

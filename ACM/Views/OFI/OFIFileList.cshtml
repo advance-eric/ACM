@@ -1,0 +1,7 @@
+﻿@model ACM.Models.OFIModel
+
+@foreach (var tempFile in Model.OFIFiles)
+{
+    @Html.Raw(Model.GenerateFileLink(tempFile))
+}
+

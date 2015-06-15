@@ -1,0 +1,9 @@
+C:\Users\Andrew\Desktop\ACM\ACM.Data\bin\Debug\ACM.Data.dll.config
+C:\Users\Andrew\Desktop\ACM\ACM.Data\bin\Debug\ACM.Data.dll
+C:\Users\Andrew\Desktop\ACM\ACM.Data\bin\Debug\ACM.Data.pdb
+C:\Users\Andrew\Desktop\ACM\ACM.Data\bin\Debug\EntityFramework.dll
+C:\Users\Andrew\Desktop\ACM\ACM.Data\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Andrew\Desktop\ACM\ACM.Data\bin\Debug\EntityFramework.xml
+C:\Users\Andrew\Desktop\ACM\ACM.Data\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Andrew\Desktop\ACM\ACM.Data\obj\Debug\ACM.Data.dll
+C:\Users\Andrew\Desktop\ACM\ACM.Data\obj\Debug\ACM.Data.pdb

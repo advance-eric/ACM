@@ -1,0 +1,52 @@
+﻿@{
+    ViewBag.Title = "My Active OFIs";
+}
+
+<script type="text/javascript">
+
+    var data;
+
+    function onEditClick(e) {
+        var tr = $(e.target).closest("tr"); //get the row for deletion
+        data = null;
+        data = this.dataItem(tr); //get the row data so it can be referred later
+        window.location = '@Url.Action("EditOFI", "OFI")/' + data.OFIID;
+    }
+    
+    function onDataBound(e) {
+        $(".k-grid-Edit").find("span").addClass("k-icon k-edit");
+    }
+</script>
+
+@(Html.Kendo()
+      .Grid<ACM.Models.OFIList>()
+      .Name("Grid")
+      .Columns(columns =>
+      {
+          columns.Bound(o => o.OFIID).Groupable(false).Title("OFI #").Width(75);
+          columns.Bound(o => o.DateCreated).Title("Date Created").Format("{0:dd/MM/yyyy}").Width(150);
+          columns.Bound(o => o.Subject).Title("Subject");
+          columns.Bound(o => o.TargetDate).Title("Target Date").Format("{0:dd/MM/yyyy}").Width(150);
+          columns.Command(command => command.Custom("Edit").Click("onEditClick")).Width(150);
+      })
+          .HtmlAttributes(new { style = "height:650px;" })
+      .Events(events =>
+      {
+          events.DataBound("onDataBound");
+      })
+      .ToolBar(tools => tools.Excel())
+        .Excel(excel => excel
+            .FileName("MyActiveOFIs.xlsx")
+            .Filterable(true)
+        )
+      .Pageable()
+      .Sortable()
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+                                          .Ajax()
+                                          .Read(read => read.Action("OFIGrid_Read", "OFI"))
+                                          .Model(model =>
+                                          {
+                                              model.Id(p => p.OFIID);
+                                          })))

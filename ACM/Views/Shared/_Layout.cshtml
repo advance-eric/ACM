@@ -1,0 +1,84 @@
+﻿@{
+    bool isPopup = System.Convert.ToBoolean(ViewBag.IsPopup);
+    bool showTitle;
+    if (ViewBag.ShowTitle == null)
+    {
+        showTitle = true;
+    }
+    else
+    {
+        showTitle = System.Convert.ToBoolean(ViewBag.ShowTitle);
+    }
+
+    bool showMenu;
+    if (ViewBag.ShowMenu == null)
+    {
+        showMenu = true;
+    }
+    else
+    {
+        showMenu = System.Convert.ToBoolean(ViewBag.ShowMenu);
+    }
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Advance Compliance Manager</title>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2015.1.429/js/jquery.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2015.1.429/js/jszip.min.js"></script>
+
+    <script src="http://cdn.kendostatic.com/2015.1.429/js/kendo.all.min.js"></script>
+    <script src="http://cdn.kendostatic.com/2015.1.429/js/kendo.aspnetmvc.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    @RenderSection("scripts", required: false)
+    <script src="~/Scripts/acm.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+    <link href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.common-bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.mobile.all.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.dataviz.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="http://cdn.kendostatic.com/2015.1.429/styles/kendo.dataviz.bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <link href="~/Content/Site.css" rel="stylesheet" />
+
+</head>
+
+<body class="k-content">
+
+    @if (Request.IsAuthenticated && !isPopup)
+    {
+        @Html.Partial("_LoginPartial")
+        @Html.Partial("_Navigation")
+    }
+    @if (showTitle)
+    {
+        <h2>@ViewBag.Title</h2>
+    }
+    @if (Request.IsAuthenticated && !isPopup)
+    {
+        <hr />
+    }
+    else
+    {
+        <br />
+    }
+    @RenderBody()
+    @if (Request.IsAuthenticated && !isPopup)
+    {
+        <hr />
+    }
+    else
+    {
+        <br />
+    }
+</body>
+</html>

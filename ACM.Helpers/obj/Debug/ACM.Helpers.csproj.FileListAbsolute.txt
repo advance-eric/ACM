@@ -1,0 +1,12 @@
+C:\Users\Andrew\Desktop\ACM\ACM.Helpers\bin\Debug\ACM.Helpers.dll.config
+C:\Users\Andrew\Desktop\ACM\ACM.Helpers\bin\Debug\ACM.Helpers.dll
+C:\Users\Andrew\Desktop\ACM\ACM.Helpers\bin\Debug\ACM.Helpers.pdb
+C:\Users\Andrew\Desktop\ACM\ACM.Helpers\bin\Debug\ACM.Data.dll
+C:\Users\Andrew\Desktop\ACM\ACM.Helpers\bin\Debug\EntityFramework.dll
+C:\Users\Andrew\Desktop\ACM\ACM.Helpers\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Andrew\Desktop\ACM\ACM.Helpers\bin\Debug\ACM.Data.pdb
+C:\Users\Andrew\Desktop\ACM\ACM.Helpers\bin\Debug\EntityFramework.xml
+C:\Users\Andrew\Desktop\ACM\ACM.Helpers\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Andrew\Desktop\ACM\ACM.Helpers\obj\Debug\ACM.Helpers.csprojResolveAssemblyReference.cache
+C:\Users\Andrew\Desktop\ACM\ACM.Helpers\obj\Debug\ACM.Helpers.dll
+C:\Users\Andrew\Desktop\ACM\ACM.Helpers\obj\Debug\ACM.Helpers.pdb

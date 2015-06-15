@@ -1,0 +1,977 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ACMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="AspNetRoles">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaims">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ClaimType" Type="nvarchar(max)" />
+          <Property Name="ClaimValue" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogins">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUserRoles">
+          <Key>
+            <PropertyRef Name="UserId" />
+            <PropertyRef Name="RoleId" />
+          </Key>
+          <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="AspNetUsers">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="256" />
+          <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+          <Property Name="PasswordHash" Type="nvarchar(max)" />
+          <Property Name="SecurityStamp" Type="nvarchar(max)" />
+          <Property Name="PhoneNumber" Type="nvarchar(max)" />
+          <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="datetime" />
+          <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+          <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="ADUserName" Type="nvarchar(max)" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="LastName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="AuditEntries">
+          <Key>
+            <PropertyRef Name="AuditEntryID" />
+          </Key>
+          <Property Name="AuditEntryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EntryDateTime" Type="datetime" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="OFIID" Type="int" />
+          <Property Name="AuditEntryType" Type="varchar" MaxLength="15" />
+          <Property Name="Description" Type="nvarchar" MaxLength="1000" />
+        </EntityType>
+        <EntityType Name="Departments">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DepartmentName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NationalManagerUserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="ManagerUserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Emails">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="EmailBody" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="OFINum" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedUserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="SentDate" Type="datetime" />
+          <Property Name="Result" Type="int" />
+        </EntityType>
+        <EntityType Name="EmailTo">
+          <Key>
+            <PropertyRef Name="EmailToID" />
+          </Key>
+          <Property Name="EmailToID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmailID" Type="int" Nullable="false" />
+          <Property Name="EmailAddress" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OFI">
+          <Key>
+            <PropertyRef Name="OFIID" />
+          </Key>
+          <Property Name="OFIID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="OFICategoryID" Type="int" Nullable="false" />
+          <Property Name="OFIOriginID" Type="int" Nullable="false" />
+          <Property Name="OFITypeID" Type="int" Nullable="false" />
+          <Property Name="Subject" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="TargetDate" Type="datetime" />
+          <Property Name="CompletedDate" Type="datetime" />
+          <Property Name="PriorityID" Type="int" Nullable="false" />
+          <Property Name="DepartmentID" Type="int" />
+          <Property Name="TimeEstimation" Type="float" />
+          <Property Name="StatusID" Type="int" Nullable="false" />
+          <Property Name="LockUserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="LockDateTime" Type="datetime" />
+          <Property Name="ApprovedUserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="ApprovedDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="OFIAssigned">
+          <Key>
+            <PropertyRef Name="OFIAssignedID" />
+          </Key>
+          <Property Name="OFIAssignedID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OFIID" Type="int" Nullable="false" />
+          <Property Name="UserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OFICategories">
+          <Key>
+            <PropertyRef Name="OFICategoryID" />
+          </Key>
+          <Property Name="OFICategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OFICategoryCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="OFICategoryName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OFIDueDate">
+          <Key>
+            <PropertyRef Name="OFIDueDateID" />
+          </Key>
+          <Property Name="OFIDueDateID" Type="int" Nullable="false" />
+          <Property Name="OFIID" Type="int" Nullable="false" />
+          <Property Name="DueDate" Type="datetime" Nullable="false" />
+          <Property Name="DueDateCreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="DueDateCreatedID" Type="nvarchar" MaxLength="128" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OFIEntries">
+          <Key>
+            <PropertyRef Name="OFIEntryID" />
+          </Key>
+          <Property Name="OFIEntryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OFIID" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+          <Property Name="EntryText" Type="text" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdateUserID" Type="nvarchar" MaxLength="128" />
+        </EntityType>
+        <EntityType Name="OFIFiles">
+          <Key>
+            <PropertyRef Name="OFIFileID" />
+          </Key>
+          <Property Name="OFIFileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OFIID" Type="int" Nullable="false" />
+          <Property Name="CreatedUserID" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ContentType" Type="varchar" MaxLength="255" />
+          <Property Name="FileLength" Type="bigint" />
+          <Property Name="FullFileName" Type="varchar" MaxLength="255" />
+          <Property Name="FileDescription" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="OFIOrigins">
+          <Key>
+            <PropertyRef Name="OFIOriginID" />
+          </Key>
+          <Property Name="OFIOriginID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OFIOriginCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="OFIOriginName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OFITypes">
+          <Key>
+            <PropertyRef Name="OFITypeID" />
+          </Key>
+          <Property Name="OFITypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OFITypeCode" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="OFITypeName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Priorities">
+          <Key>
+            <PropertyRef Name="PriorityID" />
+          </Key>
+          <Property Name="PriorityID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PriorityName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportCategories">
+          <Key>
+            <PropertyRef Name="ReportCategoryID" />
+          </Key>
+          <Property Name="ReportCategoryID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportFiles">
+          <Key>
+            <PropertyRef Name="ReportFileID" />
+          </Key>
+          <Property Name="ReportFileID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CreatedDateTime" Type="datetime" Nullable="false" />
+          <Property Name="ContentType" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FileLength" Type="bigint" Nullable="false" />
+          <Property Name="FullFileName" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="FileDescription" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Reports">
+          <Key>
+            <PropertyRef Name="ReportID" />
+          </Key>
+          <Property Name="ReportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReportCategoryID" Type="int" Nullable="false" />
+          <Property Name="ReportDate" Type="datetime" Nullable="false" />
+          <Property Name="ReviewUserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="ReviewDateTime" Type="datetime" />
+          <Property Name="Comments" Type="varchar" MaxLength="255" />
+          <Property Name="AuditUserID" Type="nvarchar" MaxLength="128" />
+          <Property Name="AuditDateTime" Type="nvarchar" MaxLength="128" />
+          <Property Name="AuditComments" Type="varchar" MaxLength="255" />
+          <Property Name="ReportFileID" Type="int" />
+        </EntityType>
+        <EntityType Name="Settings">
+          <Key>
+            <PropertyRef Name="SettingID" />
+          </Key>
+          <Property Name="SettingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SettingCode" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SettingValue" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Statuses">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StatusName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="HexColour" Type="varchar" MaxLength="10" />
+          <Property Name="Deleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaims">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogins">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+          <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetRoles">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="RoleId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+          <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUsers">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserRoles">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ACMModelStoreContainer">
+          <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="AuditEntries" EntityType="Self.AuditEntries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Departments" EntityType="Self.Departments" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Emails" EntityType="Self.Emails" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EmailTo" EntityType="Self.EmailTo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OFI" EntityType="Self.OFI" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OFIAssigned" EntityType="Self.OFIAssigned" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OFICategories" EntityType="Self.OFICategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OFIDueDate" EntityType="Self.OFIDueDate" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OFIEntries" EntityType="Self.OFIEntries" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OFIFiles" EntityType="Self.OFIFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OFIOrigins" EntityType="Self.OFIOrigins" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="OFITypes" EntityType="Self.OFITypes" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Priorities" EntityType="Self.Priorities" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportCategories" EntityType="Self.ReportCategories" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ReportFiles" EntityType="Self.ReportFiles" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reports" EntityType="Self.Reports" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Settings" EntityType="Self.Settings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Statuses" EntityType="Self.Statuses" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+            <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ACMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ACMEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="AspNetRoles" EntityType="ACMModel.AspNetRole" />
+          <EntitySet Name="AspNetUserClaims" EntityType="ACMModel.AspNetUserClaim" />
+          <EntitySet Name="AspNetUserLogins" EntityType="ACMModel.AspNetUserLogin" />
+          <EntitySet Name="AspNetUsers" EntityType="ACMModel.AspNetUser" />
+          <EntitySet Name="AuditEntries" EntityType="ACMModel.AuditEntry" />
+          <EntitySet Name="Departments" EntityType="ACMModel.Department" />
+          <EntitySet Name="Emails" EntityType="ACMModel.Email" />
+          <EntitySet Name="EmailToes" EntityType="ACMModel.EmailTo" />
+          <EntitySet Name="OFIs" EntityType="ACMModel.OFI" />
+          <EntitySet Name="OFIAssigneds" EntityType="ACMModel.OFIAssigned" />
+          <EntitySet Name="OFICategories" EntityType="ACMModel.OFICategory" />
+          <EntitySet Name="OFIEntries" EntityType="ACMModel.OFIEntry" />
+          <EntitySet Name="OFIFiles" EntityType="ACMModel.OFIFile" />
+          <EntitySet Name="OFIOrigins" EntityType="ACMModel.OFIOrigin" />
+          <EntitySet Name="OFITypes" EntityType="ACMModel.OFIType" />
+          <EntitySet Name="Priorities" EntityType="ACMModel.Priority" />
+          <EntitySet Name="ReportCategories" EntityType="ACMModel.ReportCategory" />
+          <EntitySet Name="ReportFiles" EntityType="ACMModel.ReportFile" />
+          <EntitySet Name="Reports" EntityType="ACMModel.Report" />
+          <EntitySet Name="Settings" EntityType="ACMModel.Setting" />
+          <EntitySet Name="Statuses" EntityType="ACMModel.Status" />
+          <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="ACMModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+          </AssociationSet>
+          <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="ACMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+            <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+          </AssociationSet>
+          <AssociationSet Name="AspNetUserRoles1" Association="ACMModel.AspNetUserRoles">
+            <End Role="AspNetRole" EntitySet="AspNetRoles" />
+            <End Role="AspNetUser" EntitySet="AspNetUsers" />
+          </AssociationSet>
+          <EntitySet Name="OFIDueDates" EntityType="ACMModel.OFIDueDate" />
+        </EntityContainer>
+        <EntityType Name="AspNetRole">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUsers" Relationship="ACMModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserClaim">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="ACMModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUserLogin">
+          <Key>
+            <PropertyRef Name="LoginProvider" />
+            <PropertyRef Name="ProviderKey" />
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUser" Relationship="ACMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+        </EntityType>
+        <EntityType Name="AspNetUser">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+          <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+          <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+          <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+          <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Name="ADUserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="AspNetUserClaims" Relationship="ACMModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+          <NavigationProperty Name="AspNetUserLogins" Relationship="ACMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+          <NavigationProperty Name="AspNetRoles" Relationship="ACMModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+        </EntityType>
+        <EntityType Name="AuditEntry">
+          <Key>
+            <PropertyRef Name="AuditEntryID" />
+          </Key>
+          <Property Name="AuditEntryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EntryDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="OFIID" Type="Int32" />
+          <Property Name="AuditEntryType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Department">
+          <Key>
+            <PropertyRef Name="DepartmentID" />
+          </Key>
+          <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NationalManagerUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ManagerUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Email">
+          <Key>
+            <PropertyRef Name="EmailID" />
+          </Key>
+          <Property Name="EmailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="EmailBody" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="OFINum" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="SentDate" Type="DateTime" Precision="3" />
+          <Property Name="Result" Type="Int32" />
+        </EntityType>
+        <EntityType Name="EmailTo">
+          <Key>
+            <PropertyRef Name="EmailToID" />
+          </Key>
+          <Property Name="EmailToID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmailID" Type="Int32" Nullable="false" />
+          <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="OFI">
+          <Key>
+            <PropertyRef Name="OFIID" />
+          </Key>
+          <Property Name="OFIID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="OFICategoryID" Type="Int32" Nullable="false" />
+          <Property Name="OFIOriginID" Type="Int32" Nullable="false" />
+          <Property Name="OFITypeID" Type="Int32" Nullable="false" />
+          <Property Name="Subject" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="TargetDate" Type="DateTime" Precision="3" />
+          <Property Name="CompletedDate" Type="DateTime" Precision="3" />
+          <Property Name="PriorityID" Type="Int32" Nullable="false" />
+          <Property Name="DepartmentID" Type="Int32" />
+          <Property Name="TimeEstimation" Type="Double" />
+          <Property Name="StatusID" Type="Int32" Nullable="false" />
+          <Property Name="LockUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="LockDateTime" Type="DateTime" Precision="3" />
+          <Property Name="ApprovedUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ApprovedDateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="OFIAssigned">
+          <Key>
+            <PropertyRef Name="OFIAssignedID" />
+          </Key>
+          <Property Name="OFIAssignedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OFIID" Type="Int32" Nullable="false" />
+          <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="OFICategory">
+          <Key>
+            <PropertyRef Name="OFICategoryID" />
+          </Key>
+          <Property Name="OFICategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OFICategoryCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="OFICategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OFIEntry">
+          <Key>
+            <PropertyRef Name="OFIEntryID" />
+          </Key>
+          <Property Name="OFIEntryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OFIID" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+          <Property Name="EntryText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="OFIFile">
+          <Key>
+            <PropertyRef Name="OFIFileID" />
+          </Key>
+          <Property Name="OFIFileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OFIID" Type="Int32" Nullable="false" />
+          <Property Name="CreatedUserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ContentType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileLength" Type="Int64" />
+          <Property Name="FullFileName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="OFIOrigin">
+          <Key>
+            <PropertyRef Name="OFIOriginID" />
+          </Key>
+          <Property Name="OFIOriginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OFIOriginCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="OFIOriginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="OFIType">
+          <Key>
+            <PropertyRef Name="OFITypeID" />
+          </Key>
+          <Property Name="OFITypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OFITypeCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="OFITypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Priority">
+          <Key>
+            <PropertyRef Name="PriorityID" />
+          </Key>
+          <Property Name="PriorityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PriorityName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportCategory">
+          <Key>
+            <PropertyRef Name="ReportCategoryID" />
+          </Key>
+          <Property Name="ReportCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ReportFile">
+          <Key>
+            <PropertyRef Name="ReportFileID" />
+          </Key>
+          <Property Name="ReportFileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ContentType" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileLength" Type="Int64" Nullable="false" />
+          <Property Name="FullFileName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="FileDescription" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Report">
+          <Key>
+            <PropertyRef Name="ReportID" />
+          </Key>
+          <Property Name="ReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReportCategoryID" Type="Int32" Nullable="false" />
+          <Property Name="ReportDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ReviewUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="ReviewDateTime" Type="DateTime" Precision="3" />
+          <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="AuditUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AuditDateTime" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Name="AuditComments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="ReportFileID" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Setting">
+          <Key>
+            <PropertyRef Name="SettingID" />
+          </Key>
+          <Property Name="SettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SettingCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SettingValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Status">
+          <Key>
+            <PropertyRef Name="StatusID" />
+          </Key>
+          <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StatusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="HexColour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="Deleted" Type="Boolean" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+          <End Type="ACMModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ACMModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserClaim">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+          <End Type="ACMModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="ACMModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="AspNetUser">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="AspNetUserLogin">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="AspNetUserRoles">
+          <End Type="ACMModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+          <End Type="ACMModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+        </Association>
+        <EntityType Name="OFIDueDate">
+          <Key>
+            <PropertyRef Name="OFIDueDateID" />
+          </Key>
+          <Property Name="OFIDueDateID" Type="Int32" Nullable="false" />
+          <Property Name="OFIID" Type="Int32" Nullable="false" />
+          <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DueDateCreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="DueDateCreatedID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ACMModelStoreContainer" CdmEntityContainer="ACMEntities">
+          <EntitySetMapping Name="AspNetRoles">
+            <EntityTypeMapping TypeName="ACMModel.AspNetRole">
+              <MappingFragment StoreEntitySet="AspNetRoles">
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserClaims">
+            <EntityTypeMapping TypeName="ACMModel.AspNetUserClaim">
+              <MappingFragment StoreEntitySet="AspNetUserClaims">
+                <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+                <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUserLogins">
+            <EntityTypeMapping TypeName="ACMModel.AspNetUserLogin">
+              <MappingFragment StoreEntitySet="AspNetUserLogins">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+                <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AspNetUsers">
+            <EntityTypeMapping TypeName="ACMModel.AspNetUser">
+              <MappingFragment StoreEntitySet="AspNetUsers">
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="ADUserName" ColumnName="ADUserName" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+                <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+                <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+                <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+                <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+                <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+                <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="AuditEntries">
+            <EntityTypeMapping TypeName="ACMModel.AuditEntry">
+              <MappingFragment StoreEntitySet="AuditEntries">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="AuditEntryType" ColumnName="AuditEntryType" />
+                <ScalarProperty Name="OFIID" ColumnName="OFIID" />
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="EntryDateTime" ColumnName="EntryDateTime" />
+                <ScalarProperty Name="AuditEntryID" ColumnName="AuditEntryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Departments">
+            <EntityTypeMapping TypeName="ACMModel.Department">
+              <MappingFragment StoreEntitySet="Departments">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="ManagerUserID" ColumnName="ManagerUserID" />
+                <ScalarProperty Name="NationalManagerUserID" ColumnName="NationalManagerUserID" />
+                <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Emails">
+            <EntityTypeMapping TypeName="ACMModel.Email">
+              <MappingFragment StoreEntitySet="Emails">
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+                <ScalarProperty Name="CreatedUserID" ColumnName="CreatedUserID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="OFINum" ColumnName="OFINum" />
+                <ScalarProperty Name="EmailBody" ColumnName="EmailBody" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="EmailToes">
+            <EntityTypeMapping TypeName="ACMModel.EmailTo">
+              <MappingFragment StoreEntitySet="EmailTo">
+                <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+                <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+                <ScalarProperty Name="EmailToID" ColumnName="EmailToID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OFIs">
+            <EntityTypeMapping TypeName="ACMModel.OFI">
+              <MappingFragment StoreEntitySet="OFI">
+                <ScalarProperty Name="ApprovedDateTime" ColumnName="ApprovedDateTime" />
+                <ScalarProperty Name="ApprovedUserID" ColumnName="ApprovedUserID" />
+                <ScalarProperty Name="LockDateTime" ColumnName="LockDateTime" />
+                <ScalarProperty Name="LockUserID" ColumnName="LockUserID" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+                <ScalarProperty Name="TimeEstimation" ColumnName="TimeEstimation" />
+                <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+                <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+                <ScalarProperty Name="TargetDate" ColumnName="TargetDate" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="OFITypeID" ColumnName="OFITypeID" />
+                <ScalarProperty Name="OFIOriginID" ColumnName="OFIOriginID" />
+                <ScalarProperty Name="OFICategoryID" ColumnName="OFICategoryID" />
+                <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="OFIID" ColumnName="OFIID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OFIAssigneds">
+            <EntityTypeMapping TypeName="ACMModel.OFIAssigned">
+              <MappingFragment StoreEntitySet="OFIAssigned">
+                <ScalarProperty Name="UserID" ColumnName="UserID" />
+                <ScalarProperty Name="OFIID" ColumnName="OFIID" />
+                <ScalarProperty Name="OFIAssignedID" ColumnName="OFIAssignedID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OFICategories">
+            <EntityTypeMapping TypeName="ACMModel.OFICategory">
+              <MappingFragment StoreEntitySet="OFICategories">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OFICategoryName" ColumnName="OFICategoryName" />
+                <ScalarProperty Name="OFICategoryCode" ColumnName="OFICategoryCode" />
+                <ScalarProperty Name="OFICategoryID" ColumnName="OFICategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OFIEntries">
+            <EntityTypeMapping TypeName="ACMModel.OFIEntry">
+              <MappingFragment StoreEntitySet="OFIEntries">
+                <ScalarProperty Name="UpdateUserID" ColumnName="UpdateUserID" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="EntryText" ColumnName="EntryText" />
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="OFIID" ColumnName="OFIID" />
+                <ScalarProperty Name="OFIEntryID" ColumnName="OFIEntryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OFIFiles">
+            <EntityTypeMapping TypeName="ACMModel.OFIFile">
+              <MappingFragment StoreEntitySet="OFIFiles">
+                <ScalarProperty Name="FileDescription" ColumnName="FileDescription" />
+                <ScalarProperty Name="FullFileName" ColumnName="FullFileName" />
+                <ScalarProperty Name="FileLength" ColumnName="FileLength" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="CreatedUserID" ColumnName="CreatedUserID" />
+                <ScalarProperty Name="OFIID" ColumnName="OFIID" />
+                <ScalarProperty Name="OFIFileID" ColumnName="OFIFileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OFIOrigins">
+            <EntityTypeMapping TypeName="ACMModel.OFIOrigin">
+              <MappingFragment StoreEntitySet="OFIOrigins">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OFIOriginName" ColumnName="OFIOriginName" />
+                <ScalarProperty Name="OFIOriginCode" ColumnName="OFIOriginCode" />
+                <ScalarProperty Name="OFIOriginID" ColumnName="OFIOriginID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="OFITypes">
+            <EntityTypeMapping TypeName="ACMModel.OFIType">
+              <MappingFragment StoreEntitySet="OFITypes">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="OFITypeName" ColumnName="OFITypeName" />
+                <ScalarProperty Name="OFITypeCode" ColumnName="OFITypeCode" />
+                <ScalarProperty Name="OFITypeID" ColumnName="OFITypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Priorities">
+            <EntityTypeMapping TypeName="ACMModel.Priority">
+              <MappingFragment StoreEntitySet="Priorities">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="PriorityName" ColumnName="PriorityName" />
+                <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportCategories">
+            <EntityTypeMapping TypeName="ACMModel.ReportCategory">
+              <MappingFragment StoreEntitySet="ReportCategories">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+                <ScalarProperty Name="ReportCategoryID" ColumnName="ReportCategoryID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ReportFiles">
+            <EntityTypeMapping TypeName="ACMModel.ReportFile">
+              <MappingFragment StoreEntitySet="ReportFiles">
+                <ScalarProperty Name="FileDescription" ColumnName="FileDescription" />
+                <ScalarProperty Name="FullFileName" ColumnName="FullFileName" />
+                <ScalarProperty Name="FileLength" ColumnName="FileLength" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="ReportFileID" ColumnName="ReportFileID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reports">
+            <EntityTypeMapping TypeName="ACMModel.Report">
+              <MappingFragment StoreEntitySet="Reports">
+                <ScalarProperty Name="ReportFileID" ColumnName="ReportFileID" />
+                <ScalarProperty Name="AuditComments" ColumnName="AuditComments" />
+                <ScalarProperty Name="AuditDateTime" ColumnName="AuditDateTime" />
+                <ScalarProperty Name="AuditUserID" ColumnName="AuditUserID" />
+                <ScalarProperty Name="Comments" ColumnName="Comments" />
+                <ScalarProperty Name="ReviewDateTime" ColumnName="ReviewDateTime" />
+                <ScalarProperty Name="ReviewUserID" ColumnName="ReviewUserID" />
+                <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+                <ScalarProperty Name="ReportCategoryID" ColumnName="ReportCategoryID" />
+                <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Settings">
+            <EntityTypeMapping TypeName="ACMModel.Setting">
+              <MappingFragment StoreEntitySet="Settings">
+                <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+                <ScalarProperty Name="SettingCode" ColumnName="SettingCode" />
+                <ScalarProperty Name="SettingID" ColumnName="SettingID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Statuses">
+            <EntityTypeMapping TypeName="ACMModel.Status">
+              <MappingFragment StoreEntitySet="Statuses">
+                <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+                <ScalarProperty Name="HexColour" ColumnName="HexColour" />
+                <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+                <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="AspNetUserRoles1" TypeName="ACMModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+            <EndProperty Name="AspNetUser">
+              <ScalarProperty Name="Id" ColumnName="UserId" />
+            </EndProperty>
+            <EndProperty Name="AspNetRole">
+              <ScalarProperty Name="Id" ColumnName="RoleId" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="OFIDueDates">
+            <EntityTypeMapping TypeName="ACMModel.OFIDueDate">
+              <MappingFragment StoreEntitySet="OFIDueDate">
+                <ScalarProperty Name="DueDateCreatedID" ColumnName="DueDateCreatedID" />
+                <ScalarProperty Name="DueDateCreatedDate" ColumnName="DueDateCreatedDate" />
+                <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+                <ScalarProperty Name="OFIID" ColumnName="OFIID" />
+                <ScalarProperty Name="OFIDueDateID" ColumnName="OFIDueDateID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

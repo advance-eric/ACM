@@ -1,0 +1,49 @@
+﻿@model ACM.Models.OFIEntryModel
+@{
+    ViewBag.Title = "Edit OFI Entry";
+    ViewBag.IsPopup = true;
+    ViewBag.ShowTitle = false;
+}
+@using (Html.BeginForm())
+{
+    @Html.HiddenFor(model => model.OFIEntryID)
+    @Html.HiddenFor(model => model.OFIID)
+    @Html.AntiForgeryToken()
+    @(Html.Kendo()
+                          .Editor()
+                  .Name("EntryText")
+                          .Tools(tools => tools
+                                               .Clear()
+                                               .Bold()
+                                               .Italic()
+                                               .Underline()
+                                               .Strikethrough()
+                                               .JustifyLeft()
+                                               .JustifyCenter()
+                                               .JustifyRight()
+                                               .JustifyFull()
+                                               .InsertUnorderedList()
+                                               .InsertOrderedList()
+                                               .Outdent()
+                                               .Indent()
+                                               .CreateLink()
+                                               .Unlink()
+                                               .InsertImage()
+                                               .InsertFile()
+                                               .SubScript()
+                                               .SuperScript()
+                                               .TableEditing()
+                                               .ViewHtml()
+                                               .Formatting()
+                                               .CleanFormatting()
+                                               .FontColor()
+                                               .BackColor()
+                                               .Print())
+
+    )
+    <br />
+    <div style="float:right;">
+        @Html.KendoSubmitButton("Save", htmlAttributes: new { style = "width: 150px" })
+        @Html.KendoSubmitButton("Cancel", htmlAttributes: new { style = "width: 150px" })
+    </div>
+}

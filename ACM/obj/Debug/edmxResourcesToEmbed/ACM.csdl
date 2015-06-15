@@ -1,0 +1,320 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ACMModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="ACMEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AspNetRoles" EntityType="ACMModel.AspNetRole" />
+    <EntitySet Name="AspNetUserClaims" EntityType="ACMModel.AspNetUserClaim" />
+    <EntitySet Name="AspNetUserLogins" EntityType="ACMModel.AspNetUserLogin" />
+    <EntitySet Name="AspNetUsers" EntityType="ACMModel.AspNetUser" />
+    <EntitySet Name="AuditEntries" EntityType="ACMModel.AuditEntry" />
+    <EntitySet Name="Departments" EntityType="ACMModel.Department" />
+    <EntitySet Name="Emails" EntityType="ACMModel.Email" />
+    <EntitySet Name="EmailToes" EntityType="ACMModel.EmailTo" />
+    <EntitySet Name="OFIs" EntityType="ACMModel.OFI" />
+    <EntitySet Name="OFIAssigneds" EntityType="ACMModel.OFIAssigned" />
+    <EntitySet Name="OFICategories" EntityType="ACMModel.OFICategory" />
+    <EntitySet Name="OFIEntries" EntityType="ACMModel.OFIEntry" />
+    <EntitySet Name="OFIFiles" EntityType="ACMModel.OFIFile" />
+    <EntitySet Name="OFIOrigins" EntityType="ACMModel.OFIOrigin" />
+    <EntitySet Name="OFITypes" EntityType="ACMModel.OFIType" />
+    <EntitySet Name="Priorities" EntityType="ACMModel.Priority" />
+    <EntitySet Name="ReportCategories" EntityType="ACMModel.ReportCategory" />
+    <EntitySet Name="ReportFiles" EntityType="ACMModel.ReportFile" />
+    <EntitySet Name="Reports" EntityType="ACMModel.Report" />
+    <EntitySet Name="Settings" EntityType="ACMModel.Setting" />
+    <EntitySet Name="Statuses" EntityType="ACMModel.Status" />
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="ACMModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaim" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="ACMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogin" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles1" Association="ACMModel.AspNetUserRoles">
+      <End Role="AspNetRole" EntitySet="AspNetRoles" />
+      <End Role="AspNetUser" EntitySet="AspNetUsers" />
+    </AssociationSet>
+    <EntitySet Name="OFIDueDates" EntityType="ACMModel.OFIDueDate" />
+  </EntityContainer>
+  <EntityType Name="AspNetRole">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="ACMModel.AspNetUserRoles" FromRole="AspNetRole" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaim">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="ACMModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaim" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogin">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUser" Relationship="ACMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogin" ToRole="AspNetUser" />
+  </EntityType>
+  <EntityType Name="AspNetUser">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="ADUserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="LastName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="ACMModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserClaim" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="ACMModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUser" ToRole="AspNetUserLogin" />
+    <NavigationProperty Name="AspNetRoles" Relationship="ACMModel.AspNetUserRoles" FromRole="AspNetUser" ToRole="AspNetRole" />
+  </EntityType>
+  <EntityType Name="AuditEntry">
+    <Key>
+      <PropertyRef Name="AuditEntryID" />
+    </Key>
+    <Property Name="AuditEntryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EntryDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="UserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="OFIID" Type="Int32" />
+    <Property Name="AuditEntryType" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="Department">
+    <Key>
+      <PropertyRef Name="DepartmentID" />
+    </Key>
+    <Property Name="DepartmentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DepartmentName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="NationalManagerUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ManagerUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Email">
+    <Key>
+      <PropertyRef Name="EmailID" />
+    </Key>
+    <Property Name="EmailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="EmailBody" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="OFINum" Type="Int32" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="SentDate" Type="DateTime" Precision="3" />
+    <Property Name="Result" Type="Int32" />
+  </EntityType>
+  <EntityType Name="EmailTo">
+    <Key>
+      <PropertyRef Name="EmailToID" />
+    </Key>
+    <Property Name="EmailToID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EmailID" Type="Int32" Nullable="false" />
+    <Property Name="EmailAddress" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="OFI">
+    <Key>
+      <PropertyRef Name="OFIID" />
+    </Key>
+    <Property Name="OFIID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="OFICategoryID" Type="Int32" Nullable="false" />
+    <Property Name="OFIOriginID" Type="Int32" Nullable="false" />
+    <Property Name="OFITypeID" Type="Int32" Nullable="false" />
+    <Property Name="Subject" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="TargetDate" Type="DateTime" Precision="3" />
+    <Property Name="CompletedDate" Type="DateTime" Precision="3" />
+    <Property Name="PriorityID" Type="Int32" Nullable="false" />
+    <Property Name="DepartmentID" Type="Int32" />
+    <Property Name="TimeEstimation" Type="Double" />
+    <Property Name="StatusID" Type="Int32" Nullable="false" />
+    <Property Name="LockUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="LockDateTime" Type="DateTime" Precision="3" />
+    <Property Name="ApprovedUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ApprovedDateTime" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="OFIAssigned">
+    <Key>
+      <PropertyRef Name="OFIAssignedID" />
+    </Key>
+    <Property Name="OFIAssignedID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OFIID" Type="Int32" Nullable="false" />
+    <Property Name="UserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="OFICategory">
+    <Key>
+      <PropertyRef Name="OFICategoryID" />
+    </Key>
+    <Property Name="OFICategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OFICategoryCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="OFICategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OFIEntry">
+    <Key>
+      <PropertyRef Name="OFIEntryID" />
+    </Key>
+    <Property Name="OFIEntryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OFIID" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreateUserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+    <Property Name="EntryText" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+    <Property Name="UpdateUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="OFIFile">
+    <Key>
+      <PropertyRef Name="OFIFileID" />
+    </Key>
+    <Property Name="OFIFileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OFIID" Type="Int32" Nullable="false" />
+    <Property Name="CreatedUserID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ContentType" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="FileLength" Type="Int64" />
+    <Property Name="FullFileName" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="FileDescription" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="OFIOrigin">
+    <Key>
+      <PropertyRef Name="OFIOriginID" />
+    </Key>
+    <Property Name="OFIOriginID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OFIOriginCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="OFIOriginName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="OFIType">
+    <Key>
+      <PropertyRef Name="OFITypeID" />
+    </Key>
+    <Property Name="OFITypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="OFITypeCode" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="OFITypeName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Priority">
+    <Key>
+      <PropertyRef Name="PriorityID" />
+    </Key>
+    <Property Name="PriorityID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PriorityName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReportCategory">
+    <Key>
+      <PropertyRef Name="ReportCategoryID" />
+    </Key>
+    <Property Name="ReportCategoryID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReportFile">
+    <Key>
+      <PropertyRef Name="ReportFileID" />
+    </Key>
+    <Property Name="ReportFileID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CreatedDateTime" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ContentType" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="FileLength" Type="Int64" Nullable="false" />
+    <Property Name="FullFileName" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="FileDescription" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Report">
+    <Key>
+      <PropertyRef Name="ReportID" />
+    </Key>
+    <Property Name="ReportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ReportCategoryID" Type="Int32" Nullable="false" />
+    <Property Name="ReportDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ReviewUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ReviewDateTime" Type="DateTime" Precision="3" />
+    <Property Name="Comments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="AuditUserID" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="AuditDateTime" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="AuditComments" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="ReportFileID" Type="Int32" />
+  </EntityType>
+  <EntityType Name="Setting">
+    <Key>
+      <PropertyRef Name="SettingID" />
+    </Key>
+    <Property Name="SettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SettingCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SettingValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="Status">
+    <Key>
+      <PropertyRef Name="StatusID" />
+    </Key>
+    <Property Name="StatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="StatusName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="HexColour" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="Deleted" Type="Boolean" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="ACMModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ACMModel.AspNetUserClaim" Role="AspNetUserClaim" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaim">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="ACMModel.AspNetUser" Role="AspNetUser" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="ACMModel.AspNetUserLogin" Role="AspNetUserLogin" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUser">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogin">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="ACMModel.AspNetRole" Role="AspNetRole" Multiplicity="*" />
+    <End Type="ACMModel.AspNetUser" Role="AspNetUser" Multiplicity="*" />
+  </Association>
+  <EntityType Name="OFIDueDate">
+    <Key>
+      <PropertyRef Name="OFIDueDateID" />
+    </Key>
+    <Property Name="OFIDueDateID" Type="Int32" Nullable="false" />
+    <Property Name="OFIID" Type="Int32" Nullable="false" />
+    <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DueDateCreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DueDateCreatedID" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

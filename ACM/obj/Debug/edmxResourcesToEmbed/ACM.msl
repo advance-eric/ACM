@@ -1,0 +1,276 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ACMModelStoreContainer" CdmEntityContainer="ACMEntities">
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="ACMModel.AspNetRole">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="ACMModel.AspNetUserClaim">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="ACMModel.AspNetUserLogin">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="ACMModel.AspNetUser">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="LastName" ColumnName="LastName" />
+          <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+          <ScalarProperty Name="ADUserName" ColumnName="ADUserName" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AuditEntries">
+      <EntityTypeMapping TypeName="ACMModel.AuditEntry">
+        <MappingFragment StoreEntitySet="AuditEntries">
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="AuditEntryType" ColumnName="AuditEntryType" />
+          <ScalarProperty Name="OFIID" ColumnName="OFIID" />
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="EntryDateTime" ColumnName="EntryDateTime" />
+          <ScalarProperty Name="AuditEntryID" ColumnName="AuditEntryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Departments">
+      <EntityTypeMapping TypeName="ACMModel.Department">
+        <MappingFragment StoreEntitySet="Departments">
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="ManagerUserID" ColumnName="ManagerUserID" />
+          <ScalarProperty Name="NationalManagerUserID" ColumnName="NationalManagerUserID" />
+          <ScalarProperty Name="DepartmentName" ColumnName="DepartmentName" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Emails">
+      <EntityTypeMapping TypeName="ACMModel.Email">
+        <MappingFragment StoreEntitySet="Emails">
+          <ScalarProperty Name="Result" ColumnName="Result" />
+          <ScalarProperty Name="SentDate" ColumnName="SentDate" />
+          <ScalarProperty Name="CreatedUserID" ColumnName="CreatedUserID" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="OFINum" ColumnName="OFINum" />
+          <ScalarProperty Name="EmailBody" ColumnName="EmailBody" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EmailToes">
+      <EntityTypeMapping TypeName="ACMModel.EmailTo">
+        <MappingFragment StoreEntitySet="EmailTo">
+          <ScalarProperty Name="EmailAddress" ColumnName="EmailAddress" />
+          <ScalarProperty Name="EmailID" ColumnName="EmailID" />
+          <ScalarProperty Name="EmailToID" ColumnName="EmailToID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OFIs">
+      <EntityTypeMapping TypeName="ACMModel.OFI">
+        <MappingFragment StoreEntitySet="OFI">
+          <ScalarProperty Name="ApprovedDateTime" ColumnName="ApprovedDateTime" />
+          <ScalarProperty Name="ApprovedUserID" ColumnName="ApprovedUserID" />
+          <ScalarProperty Name="LockDateTime" ColumnName="LockDateTime" />
+          <ScalarProperty Name="LockUserID" ColumnName="LockUserID" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+          <ScalarProperty Name="TimeEstimation" ColumnName="TimeEstimation" />
+          <ScalarProperty Name="DepartmentID" ColumnName="DepartmentID" />
+          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+          <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+          <ScalarProperty Name="TargetDate" ColumnName="TargetDate" />
+          <ScalarProperty Name="Subject" ColumnName="Subject" />
+          <ScalarProperty Name="OFITypeID" ColumnName="OFITypeID" />
+          <ScalarProperty Name="OFIOriginID" ColumnName="OFIOriginID" />
+          <ScalarProperty Name="OFICategoryID" ColumnName="OFICategoryID" />
+          <ScalarProperty Name="CreatedUserId" ColumnName="CreatedUserId" />
+          <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+          <ScalarProperty Name="OFIID" ColumnName="OFIID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OFIAssigneds">
+      <EntityTypeMapping TypeName="ACMModel.OFIAssigned">
+        <MappingFragment StoreEntitySet="OFIAssigned">
+          <ScalarProperty Name="UserID" ColumnName="UserID" />
+          <ScalarProperty Name="OFIID" ColumnName="OFIID" />
+          <ScalarProperty Name="OFIAssignedID" ColumnName="OFIAssignedID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OFICategories">
+      <EntityTypeMapping TypeName="ACMModel.OFICategory">
+        <MappingFragment StoreEntitySet="OFICategories">
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="OFICategoryName" ColumnName="OFICategoryName" />
+          <ScalarProperty Name="OFICategoryCode" ColumnName="OFICategoryCode" />
+          <ScalarProperty Name="OFICategoryID" ColumnName="OFICategoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OFIEntries">
+      <EntityTypeMapping TypeName="ACMModel.OFIEntry">
+        <MappingFragment StoreEntitySet="OFIEntries">
+          <ScalarProperty Name="UpdateUserID" ColumnName="UpdateUserID" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="EntryText" ColumnName="EntryText" />
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="CreateUserID" ColumnName="CreateUserID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="OFIID" ColumnName="OFIID" />
+          <ScalarProperty Name="OFIEntryID" ColumnName="OFIEntryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OFIFiles">
+      <EntityTypeMapping TypeName="ACMModel.OFIFile">
+        <MappingFragment StoreEntitySet="OFIFiles">
+          <ScalarProperty Name="FileDescription" ColumnName="FileDescription" />
+          <ScalarProperty Name="FullFileName" ColumnName="FullFileName" />
+          <ScalarProperty Name="FileLength" ColumnName="FileLength" />
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+          <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+          <ScalarProperty Name="CreatedUserID" ColumnName="CreatedUserID" />
+          <ScalarProperty Name="OFIID" ColumnName="OFIID" />
+          <ScalarProperty Name="OFIFileID" ColumnName="OFIFileID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OFIOrigins">
+      <EntityTypeMapping TypeName="ACMModel.OFIOrigin">
+        <MappingFragment StoreEntitySet="OFIOrigins">
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="OFIOriginName" ColumnName="OFIOriginName" />
+          <ScalarProperty Name="OFIOriginCode" ColumnName="OFIOriginCode" />
+          <ScalarProperty Name="OFIOriginID" ColumnName="OFIOriginID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="OFITypes">
+      <EntityTypeMapping TypeName="ACMModel.OFIType">
+        <MappingFragment StoreEntitySet="OFITypes">
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="OFITypeName" ColumnName="OFITypeName" />
+          <ScalarProperty Name="OFITypeCode" ColumnName="OFITypeCode" />
+          <ScalarProperty Name="OFITypeID" ColumnName="OFITypeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Priorities">
+      <EntityTypeMapping TypeName="ACMModel.Priority">
+        <MappingFragment StoreEntitySet="Priorities">
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="PriorityName" ColumnName="PriorityName" />
+          <ScalarProperty Name="PriorityID" ColumnName="PriorityID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReportCategories">
+      <EntityTypeMapping TypeName="ACMModel.ReportCategory">
+        <MappingFragment StoreEntitySet="ReportCategories">
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="ReportCategoryID" ColumnName="ReportCategoryID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReportFiles">
+      <EntityTypeMapping TypeName="ACMModel.ReportFile">
+        <MappingFragment StoreEntitySet="ReportFiles">
+          <ScalarProperty Name="FileDescription" ColumnName="FileDescription" />
+          <ScalarProperty Name="FullFileName" ColumnName="FullFileName" />
+          <ScalarProperty Name="FileLength" ColumnName="FileLength" />
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+          <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+          <ScalarProperty Name="ReportFileID" ColumnName="ReportFileID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reports">
+      <EntityTypeMapping TypeName="ACMModel.Report">
+        <MappingFragment StoreEntitySet="Reports">
+          <ScalarProperty Name="ReportFileID" ColumnName="ReportFileID" />
+          <ScalarProperty Name="AuditComments" ColumnName="AuditComments" />
+          <ScalarProperty Name="AuditDateTime" ColumnName="AuditDateTime" />
+          <ScalarProperty Name="AuditUserID" ColumnName="AuditUserID" />
+          <ScalarProperty Name="Comments" ColumnName="Comments" />
+          <ScalarProperty Name="ReviewDateTime" ColumnName="ReviewDateTime" />
+          <ScalarProperty Name="ReviewUserID" ColumnName="ReviewUserID" />
+          <ScalarProperty Name="ReportDate" ColumnName="ReportDate" />
+          <ScalarProperty Name="ReportCategoryID" ColumnName="ReportCategoryID" />
+          <ScalarProperty Name="ReportID" ColumnName="ReportID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Settings">
+      <EntityTypeMapping TypeName="ACMModel.Setting">
+        <MappingFragment StoreEntitySet="Settings">
+          <ScalarProperty Name="SettingValue" ColumnName="SettingValue" />
+          <ScalarProperty Name="SettingCode" ColumnName="SettingCode" />
+          <ScalarProperty Name="SettingID" ColumnName="SettingID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Statuses">
+      <EntityTypeMapping TypeName="ACMModel.Status">
+        <MappingFragment StoreEntitySet="Statuses">
+          <ScalarProperty Name="Deleted" ColumnName="Deleted" />
+          <ScalarProperty Name="HexColour" ColumnName="HexColour" />
+          <ScalarProperty Name="StatusName" ColumnName="StatusName" />
+          <ScalarProperty Name="StatusID" ColumnName="StatusID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles1" TypeName="ACMModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetUser">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+      <EndProperty Name="AspNetRole">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+    <EntitySetMapping Name="OFIDueDates">
+      <EntityTypeMapping TypeName="ACMModel.OFIDueDate">
+        <MappingFragment StoreEntitySet="OFIDueDate">
+          <ScalarProperty Name="DueDateCreatedID" ColumnName="DueDateCreatedID" />
+          <ScalarProperty Name="DueDateCreatedDate" ColumnName="DueDateCreatedDate" />
+          <ScalarProperty Name="DueDate" ColumnName="DueDate" />
+          <ScalarProperty Name="OFIID" ColumnName="OFIID" />
+          <ScalarProperty Name="OFIDueDateID" ColumnName="OFIDueDateID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

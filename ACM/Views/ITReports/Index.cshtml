@@ -1,0 +1,71 @@
+﻿@model ACM.Models.ITReports.ITReportsModel
+@{
+    ViewBag.Title = "IT Security Reports";
+}
+<script type="text/javascript">
+    function showReviewPopup(id)
+    {
+        var window = $("#ITReportPopup").data("kendoWindow");
+        window.refresh({
+            url: "/ITReports/ITReportAcknowledge/" + id
+            
+        });
+        $("#ITReportPopup").data("kendoWindow").center().open();
+    }
+
+    function itReportPopupClose()
+    {
+        $("#ITReportPopup").data("kendoWindow").close();
+    }
+</script>
+
+@(Html.Kendo().Window()
+    .Name("ITReportPopup")
+    .Title("Review Report")
+    .Iframe(true)
+    .Modal(true)
+    .Draggable()
+    .Resizable()
+    .Visible(false)
+    .Width(500)
+    .Height(350)
+)
+
+@using (Html.BeginForm())
+{
+    <div style="padding-bottom:50px;">
+        @Html.LabelFor(model => model.ReportCategoryID, new { style = "padding-right:50px;" })
+        @Html.Kendo().DropDownListFor(model => model.ReportCategoryID).BindTo(ACM.Helpers.ListHelper.GetITReportsList()).HtmlAttributes(new { style = "width:250px;" })
+        @Html.LabelFor(model => model.ReportViewID, new { style = "padding-left:25px; padding-right:50px;" })
+        @Html.Kendo().DropDownListFor(model => model.ReportViewID).BindTo(ACM.Helpers.ListHelper.GetITReportStatus()).HtmlAttributes(new { style = "width:250px;" })
+        <div style="float:right;">
+            @Html.KendoSubmitButton("Filter", "FilterReport", new { style = "width:100px;" })
+            @Html.KendoSubmitButton("Clear Filter", "ClearFilter", new { style = "width:100px;" })
+        </div>
+    </div>
+    @(Html.Kendo().Grid<ACM.Models.ITReports.ITReportGridItem>()
+        .Name("Grid")
+        .Columns(columns =>
+        {
+            columns.Template(e => { }).ClientTemplate("<a href='/ITReports/DownloadReport/#:data.ReportID#'><img src=\"/Content/Images/icons/page_white_acrobat.png\" /></a>&nbsp;&nbsp;&nbsp;" +
+                "<a href='\\#' onclick='showReviewPopup(#:data.ReportID#); return false;'><img src=\"/Content/Images/icons/magnifier.png\" /></a>").Width(75).Title("");
+            columns.Bound(c => c.ReportDate).Width(140).Format("{0:dd/MM/yyyy}");
+            columns.Bound(c => c.ReportType).Width(300);
+            columns.Bound(c => c.ReviewDate).Width(140).Format("{0:dd/MM/yyyy}");
+            columns.Bound(c => c.ReviewedBy).Width(200);
+            columns.Bound(c => c.Comments);
+        })
+        .HtmlAttributes(new { style = "height: 380px;" })
+        .Scrollable()
+        .Sortable()
+        .Pageable(pageable => pageable
+            .Refresh(true)
+            .PageSizes(true)
+            .ButtonCount(5))
+        .DataSource(dataSource => dataSource
+            .Ajax()
+                .Read(read => read.Action("ITReportsGrid_Read", "ITReports"))
+        )
+    )
+
+}
