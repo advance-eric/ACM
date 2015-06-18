@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="ACMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="ACMModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="AspNetRoles">
           <Key>
             <PropertyRef Name="Id" />
@@ -145,7 +145,7 @@
           <Key>
             <PropertyRef Name="OFIDueDateID" />
           </Key>
-          <Property Name="OFIDueDateID" Type="int" Nullable="false" />
+          <Property Name="OFIDueDateID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="OFIID" Type="int" Nullable="false" />
           <Property Name="DueDate" Type="datetime" Nullable="false" />
           <Property Name="DueDateCreatedDate" Type="datetime" Nullable="false" />
@@ -245,7 +245,7 @@
           </Key>
           <Property Name="SettingID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="SettingCode" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="SettingValue" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="SettingValue" Type="varchar" MaxLength="255" Nullable="false" />
         </EntityType>
         <EntityType Name="Statuses">
           <Key>
@@ -621,7 +621,7 @@
           </Key>
           <Property Name="SettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="SettingCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="SettingValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="SettingValue" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -668,7 +668,7 @@
           <Key>
             <PropertyRef Name="OFIDueDateID" />
           </Key>
-          <Property Name="OFIDueDateID" Type="Int32" Nullable="false" />
+          <Property Name="OFIDueDateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="OFIID" Type="Int32" Nullable="false" />
           <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="DueDateCreatedDate" Type="DateTime" Nullable="false" Precision="3" />

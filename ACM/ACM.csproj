@@ -207,6 +207,7 @@
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\OFIController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Department.cs">
       <DependentUpon>ACM.tt</DependentUpon>
     </Compile>
@@ -225,6 +226,9 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Admin\UserModel.cs" />
+    <Compile Include="Models\Admin\UserRoleModel.cs" />
+    <Compile Include="Models\Helpers\AsyncHelpers.cs" />
     <Compile Include="Models\Helpers\CodeHelper.cs" />
     <Compile Include="Models\Helpers\ContentHelper.cs" />
     <Compile Include="Models\Helpers\DBHelper.cs" />
@@ -471,6 +475,12 @@
     <Content Include="ACM.edmx.diagram">
       <DependentUpon>ACM.edmx</DependentUpon>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\UserEdit.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Admin\Users.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

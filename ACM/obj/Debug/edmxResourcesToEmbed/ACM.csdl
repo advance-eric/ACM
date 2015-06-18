@@ -264,7 +264,7 @@
     </Key>
     <Property Name="SettingID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="SettingCode" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-    <Property Name="SettingValue" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="SettingValue" Type="String" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
   </EntityType>
   <EntityType Name="Status">
     <Key>
@@ -311,7 +311,7 @@
     <Key>
       <PropertyRef Name="OFIDueDateID" />
     </Key>
-    <Property Name="OFIDueDateID" Type="Int32" Nullable="false" />
+    <Property Name="OFIDueDateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="OFIID" Type="Int32" Nullable="false" />
     <Property Name="DueDate" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="DueDateCreatedDate" Type="DateTime" Nullable="false" Precision="3" />

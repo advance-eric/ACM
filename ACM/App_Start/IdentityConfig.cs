@@ -112,6 +112,8 @@ namespace ACM
         {
         }
 
+
+
         public override Task<ClaimsIdentity> CreateUserIdentityAsync(ApplicationUser user)
         {
             return user.GenerateUserIdentityAsync((ApplicationUserManager)UserManager);
@@ -122,26 +124,48 @@ namespace ACM
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
 
-        public async Task<SignInStatus> PasswordSignInAsyncCustom(string userName, string password, bool isPersistent, bool shouldLockout)
-        {
-            var baseResult = await base.PasswordSignInAsync(userName, password, isPersistent, shouldLockout);
-            
-            //var result = await Task.Run(FindAccountByEmail(userName));
-            DirectoryEntry result = new DirectoryEntry();
-            Task t = Task.Run(() =>
-            {
-                result = FindAccountByEmail(userName);
-                var yeah = CheckAdsiLogin(GetPropertyValue(result, "sAMAccountName"), password);
-            });
 
-            if (result != null)
+
+        public SignInStatus PasswordSignInCustom(string userName, string password, bool isPersistent, bool shouldLockout)
+        {
+            var user = UserManager.FindByName(userName);
+            var de = FindAccountByEmail(userName);
+            var adSearch = "";
+            if (user != null)
             {
-                //var retVal = Task<SignInStatus.Success>();
-                //retVal = 
-                return SignInStatus.Success;
+                if (!string.IsNullOrWhiteSpace(user.ADUserName))
+                    adSearch = user.ADUserName;
             }
-            
-            return baseResult;
+            else
+            {
+                if (de != null)
+                    adSearch = GetPropertyValue(de, "sAMAccountName");
+            }
+
+            SignInStatus retVal = SignInStatus.Failure;
+            if (!string.IsNullOrWhiteSpace(adSearch))
+            {
+                if (CheckAdsiLogin(adSearch, password))
+                {
+                    if (user == null)
+                    {
+                        var newUser = new ApplicationUser();
+                        newUser.Email = userName;
+                        newUser.UserName = userName;
+                        newUser.ADUserName = GetPropertyValue(de, "sAMAccountName");
+                        newUser.FirstName = GetPropertyValue(de, "givenName");
+                        newUser.LastName = GetPropertyValue(de, "sn");
+                        var newUserResult = ACM.Helpers.AsyncHelpers.RunSync<IdentityResult>(() => UserManager.CreateAsync(newUser, password));
+                        
+                    }
+                    retVal = ACM.Helpers.AsyncHelpers.RunSync<SignInStatus>(() => base.PasswordSignInAsync(userName, password, false, false));
+                    return retVal;
+
+                }
+            }
+            retVal = ACM.Helpers.AsyncHelpers.RunSync<SignInStatus>(() => base.PasswordSignInAsync(userName, password, false, false));
+
+            return retVal;
         }
 
         private string GetPropertyValue(DirectoryEntry de, string propertyName)

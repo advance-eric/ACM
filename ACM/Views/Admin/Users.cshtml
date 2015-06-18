@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "Manage Users";
+}
+
+<script type="text/javascript">
+    function onDataBound(e) {
+        $(".k-grid-Delete").find("span").addClass("k-icon k-delete");
+        $(".k-grid-Edit").find("span").addClass("k-icon k-edit");
+    }
+
+    function editUser(e) {
+        var tr = $(e.target).closest("tr");
+        data = null;
+        data = this.dataItem(tr);
+        var URL = "@Url.Action("UserEdit", "Admin")/" + data.id;
+        window.location = URL;
+    }
+
+</script>
+@Html.KendoSubmitButton("Add New User", "AddNewUser", location: Url.Action("Register", "Account"))<br />
+@(Html.Kendo()
+      .Grid<ACM.Models.Admin.UserGridItem>()
+      .Name("Grid")
+      .Columns(columns =>
+      {
+          columns.Bound(o => o.Id).Title("ID #").Width(400).Visible(false);
+          columns.Bound(o => o.FullName);
+          columns.Bound(o => o.Role);
+          columns.Bound(o => o.Department);
+          columns.Command(command => command.Custom("Edit").Click("editUser")).Width(100);
+      })
+      .HtmlAttributes(new { style = "height:650px;" })
+      .Events(events =>
+      {
+          events.DataBound("onDataBound");
+      })
+      .Pageable()
+      .Sortable()
+      .Filterable()
+      .Scrollable()
+      .DataSource(dataSource => dataSource
+            .Ajax()
+            .Read(read => read.Action("UserGrid_Read", "Admin"))
+            .Model(model =>
+            {
+                model.Id(p => p.Id);
+            })
+      )
+)

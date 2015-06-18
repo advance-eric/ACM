@@ -1,0 +1,116 @@
+﻿@model ACM.Models.Admin.UserModel
+
+@{
+    if (string.IsNullOrWhiteSpace(Model.Id))
+    {
+        ViewBag.Title = "Add New User";
+    }
+    else
+    {
+        ViewBag.Title = "Edit User";
+    }
+}
+
+<script type="text/javascript">
+    function ThrowError(errorMessage) {
+        $("#errorMessage").html(errorMessage);
+        setTimeout(function () {
+            $("#errorMessage").html("");
+        }, 5000);
+        hideAjax();
+        return;
+    }
+
+
+    function ResetPassword() {
+        showAjax();
+        var newPassword = $("#EnterPassword").val();
+        if (!newPassword) {
+            ThrowError("Please enter a new password.");
+            return;
+        }
+        var newPassword2 = $("#ReenterPassword").val();
+        if (!newPassword2) {
+            ThrowError("Please re-enter the new password.");
+            return;
+        }
+        if (newPassword !== newPassword2) {
+            ThrowError("Passwords entered do not match.");
+            return;
+        }
+        var formData = { id: "@Model.Id", password: newPassword };
+        $.ajax({
+            url: "@Url.Action("ResetPassword", "Admin")",
+            type: "POST",
+            data: formData,
+            success: function (data, textStatus, jqXHR) {
+                ThrowError("Successfully reset password.");
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                ThrowError("An unknown error occurred.");
+            }
+        });
+        hideAjax();
+    }
+
+    function ShowHideReset()
+    {
+        if ($("#passwordResetDiv").is(":visible"))
+        {
+            $("#passwordResetDiv").fadeOut();
+            $("#faArrow").attr("class", "fa fa-arrow-down");
+        }
+        else
+        {
+            $("#passwordResetDiv").fadeIn();
+            $("#faArrow").attr("class", "fa fa-arrow-up");
+        }
+
+    }
+</script>
+
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false)
+
+    <div style="padding-left:50px; padding-right:50px;">
+        <table style="width:100%">
+            <tr>
+                <td style="width:33%; padding-right: 25px;">&nbsp;</td>
+                <td style="width:33%; padding-right: 25px;">&nbsp;</td>
+                <td style="width:33%; padding-right: 25px; text-align:right;">
+                    @Html.KendoSubmitButton("Save Changes", icon: HTMLHelper.Icons.tick, buttonWidth: "150px")
+                    @Html.KendoSubmitButton("Cancel Changes", icon: HTMLHelper.Icons.cancel, buttonWidth: "150px")
+                </td>
+            </tr>
+            <tr>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.Id) <br /> @Html.KendoTextBoxFor(model => model.Id, HTMLHelper.KendoTextBoxType.Standard, new { @readonly = "readonly", style = "width:350px;" })</td>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.FirstName) <br /> @Html.KendoTextBoxFor(model => model.FirstName, HTMLHelper.KendoTextBoxType.Standard, new { style = "width:350px;" })</td>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.LastName) <br /> @Html.KendoTextBoxFor(model => model.LastName, HTMLHelper.KendoTextBoxType.Standard, new { style = "width:350px;" })</td>
+            </tr>
+            <tr>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.Email) <br /> @Html.KendoTextBoxFor(model => model.Email, HTMLHelper.KendoTextBoxType.Standard, new { style = "width:350px;" })</td>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.PhoneNumber) <br /> @Html.KendoTextBoxFor(model => model.PhoneNumber, HTMLHelper.KendoTextBoxType.Standard, new { style = "width:350px;" })</td>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.UserRoleID) <br /> @Html.Kendo().DropDownListFor(model => model.UserRoleID).BindTo(Model.GetUserRoles()).HtmlAttributes(new { style = "width:350px;" })</td>
+            </tr>
+            <tr>
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.DepartmentID) <br /> @Html.Kendo().DropDownListFor(model => model.DepartmentID).BindTo(Model.GetDepartments()).HtmlAttributes(new { style = "width:350px;" })
+                <td style="width:33%; padding-right: 25px;">@Html.LabelFor(model => model.ActiveUser) <br /> @Html.CheckBoxFor(model => model.ActiveUser)</td>
+            </tr>
+        </table>
+        <br />
+
+        <br />
+        <br />
+        <a href="#" onclick="ShowHideReset()"><strong>Reset Password</strong>&nbsp;&nbsp;&nbsp;<i class="fa fa-arrow-down" id="faArrow"></i></a>
+        <div id="passwordResetDiv" style="display:none;">
+            @Html.Partial("UserEditPasswordPartial", Model)
+        </div>
+    </div>
+
+
+}
+

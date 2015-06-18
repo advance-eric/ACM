@@ -93,7 +93,8 @@ namespace ACM.Models
 
     public class ResetPasswordViewModel
     {
-        [Required]
+        public string UserID { get; set; }
+
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }

@@ -81,7 +81,7 @@ namespace ACM.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public ActionResult Login(LoginViewModel model, string returnUrl)
         {
             if (!ModelState.IsValid)
             {
@@ -90,7 +90,7 @@ namespace ACM.Controllers
 
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsyncCustom(model.Email, model.Password, model.RememberMe, shouldLockout: false);
+            var result = SignInManager.PasswordSignInCustom(model.Email, model.Password, model.RememberMe, shouldLockout: false);
             var settingResult = ACM.Helpers.ConfigHelper.SMTPHost();
 
             switch (result)
@@ -248,6 +248,9 @@ namespace ACM.Controllers
             return code == null ? View("Error") : View();
         }
 
+
+
+
         //
         // POST: /Account/ResetPassword
         [HttpPost]
@@ -259,13 +262,14 @@ namespace ACM.Controllers
             {
                 return View(model);
             }
-            var user = await UserManager.FindByNameAsync(model.Email);
+            
+            /*var user = await UserManager.FindByNameAsync(model.Email);
             if (user == null)
             {
                 // Don't reveal that the user does not exist
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
-            }
-            var result = await UserManager.ResetPasswordAsync(user.Id, model.Code, model.Password);
+            }*/
+            var result = await UserManager.ResetPasswordAsync(model.UserID, model.Code, model.Password);
             if (result.Succeeded)
             {
                 return RedirectToAction("ResetPasswordConfirmation", "Account");
